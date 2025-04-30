@@ -10,3 +10,5 @@ begin
 rescue SQLite3::Excepction => e
   puts "Ocurrió un error: #{e.message}"
 end
+
+# Si puedes leer esto, es porque Git funciona
