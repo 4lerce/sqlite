@@ -1,14 +1,31 @@
-require_relative 'lib/database'
+require_relative 'lib/usuario'
 
-begin
-  db = Database.connection
-  resultados = db.execute("SELECT * FROM usuarios;")
+# --- Registrar usuario ---
+puts "Ingrese nombre:"
+nombre = gets.chomp
 
-  resultados.each do |fila|
-    puts "Nombre #{fila['nombre']}, Correo: #{fila['correo']}"
-  end
-rescue SQLite3::Excepction => e
-  puts "Ocurrió un error: #{e.message}"
-end
+puts "Ingrese correo:"
+correo = gets.chomp
 
-# Si puedes leer esto, es porque Git funciona
+id = Usuario.crear(nombre, correo)
+puts "Usuario creado con ID: #{id}"
+
+# --- Buscar usuarios en específico ---
+# puts "Ingrese el ID del usuario que desea buscar:"
+# id = gets.chomp.to_i
+
+# usuario = Usuario.buscar(id)
+
+# if usuario
+#   puts "ID: #{usuario['id_usuario']}"
+#   puts "Nombre: #{usuario['nombre']}"
+#   puts "Correo: #{usuario['correo']}"
+# else
+#   puts "No se encontró ningún usuario con ese ID."
+# end
+
+# --- Listar todos los usuarios ---
+# usuarios = Usuario.todos
+# usuarios.each do |usuario|
+#   puts "ID: #{usuario['id_usuario']} - Nombre: #{usuario['nombre']} - Correo #{usuario['correo']}"
+# end
