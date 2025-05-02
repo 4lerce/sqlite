@@ -1,3 +1,5 @@
+# lib/database.rb
+
 require 'sqlite3'
 
 class Database
@@ -9,4 +11,3 @@ class Database
     end
   end
 end
-    
