@@ -1,8 +1,33 @@
 # prueba.rb
 
-# require_relative 'lib/usuario'
-
+require_relative 'lib/usuario'
 require_relative 'lib/libro'
+require_relative 'lib/prestamo'
+
+# --- TESTING 'lib/prestamo.rb' ---
+
+# -- Crear un nuevo préstamo --
+puts "Creando un nuevo préstamo..."
+prestamo = Prestamo.new(id_usuario: 1, id_libro: 2, fecha_prestamo: "2025-05-03")
+prestamo.guardar
+puts "Préstamo creado con ID #{prestamo.id}"
+
+# -- Listar todos los préstamos --
+puts "\nLista de todos los préstamos:"
+Prestamo.todos.each do |p|
+  puts "ID: #{p.id}, Usuario: #{p.id_usuario}, Libro: #{p.id_libro}, Fecha: #{p.fecha_prestamo}"
+end
+
+# -- Buscar un préstamo específico --
+puts "\nBuscando préstamo con ID 1:"
+encontrado = Prestamo.buscar(1)
+if encontrado
+  puts "Préstamo encontrado: Usuario #{encontrado.id_usuario}, Libro #{encontrado.id_libro}, Fecha #{encontrado.fecha_prestamo}"
+else
+  puts "No se encontró un préstamo con ID 1"
+end
+
+# --- TESTING 'lib/libro.rb' ---
 
 # -- Crear un nuevo libro --
 # libro = Libro.new(titulo: "Las aventuras de Alicia en el país de las maravillas", autor: "Lewis Carroll")
@@ -10,13 +35,12 @@ require_relative 'lib/libro'
 # puts "Libro creado con ID: #{libro.id}"
 
 # -- Buscar un libro por ID --
-libro_encontrado = Libro.buscar(5)
 # libro_encontrado = Libro.buscar(libro.id)
-if libro_encontrado
-  puts "Libro encontrado: #{libro_encontrado.titulo} de #{libro_encontrado.autor}"
-else
-  puts "Libro no encontrado"
-end
+# if libro_encontrado
+#   puts "Libro encontrado: #{libro_encontrado.titulo} de #{libro_encontrado.autor}"
+# else
+#   puts "Libro no encontrado"
+# end
 
 # # -- Modificar los datos del libro --
 # libro_encontrado.titulo = "Sobre héroes y tumbas"
@@ -24,11 +48,12 @@ end
 # puts "Libro actualizado"
 
 # -- Ver todos los libros --
-puts "\nListado de todos los libros:"
-Libro.todos.each do |l|
-  puts "ID: #{l.id} | Título: #{l.titulo} | Autor: #{l.autor}"
-end
+# puts "\nListado de todos los libros:"
+# Libro.todos.each do |l|
+#   puts "ID: #{l.id} | Título: #{l.titulo} | Autor: #{l.autor}"
+# end
 
+# --- TESTING 'lib/usuario.rb' ---
 
 # -- Buscar y Actualizar datos de usuario --
 # usuario = Usuario.buscar(10)
