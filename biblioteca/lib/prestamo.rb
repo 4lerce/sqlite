@@ -5,13 +5,14 @@ require_relative 'usuario'
 require_relative 'libro'
 
 class Prestamo
-  attr_accessor :id, :id_usuario, :id_libro, :fecha_prestamo
+  attr_accessor :id, :id_usuario, :id_libro, :fecha_prestamo, :fecha_devolucion
 
-  def initialize(id: nil, id_usuario:, id_libro:, fecha_prestamo:)
+  def initialize(id: nil, id_usuario:, id_libro:, fecha_prestamo:, fecha_devolucion: nil)
     @id = id
     @id_usuario = id_usuario
     @id_libro = id_libro
     @fecha_prestamo = fecha_prestamo
+    @fecha_devolucion = fecha_devolucion
   end
 
   def self.todos
@@ -22,7 +23,8 @@ class Prestamo
         id: fila["id"],
         id_usuario: fila["id_usuario"],
         id_libro: fila["id_libro"],
-        fecha_prestamo: fila["fecha_prestamo"]
+        fecha_prestamo: fila["fecha_prestamo"],
+        fecha_devolucion: fila["fecha_devolucion"]
       )
     end
   end
@@ -35,7 +37,8 @@ class Prestamo
       id: fila["id"],
       id_usuario: fila["id_usuario"],
       id_libro: fila["id_libro"],
-      fecha_prestamo: fila["fecha_prestamo"]
+      fecha_prestamo: fila["fecha_prestamo"],
+      fecha_devolucion: fila["fecha_devolucion"]
     )
   end
 
@@ -45,7 +48,8 @@ class Prestamo
       db.execute("INSERT INTO prestamos (id_usuario, id_libro, fecha_prestamo) VALUES (?, ?, ?);", [@id_usuario, @id_libro, @fecha_prestamo])
       @id = db.last_insert_row_id
     else
-      db.execute("UPDATE prestamos SET id_usuario = ?, id_libro = ?, fecha_prestamo = ? WHERE id = ?;", [@id_usuario, @id_libro, @fecha_prestamo, @id])
+      @fecha_devolucion = Time.now.strftime("%Y-%m-%d")
+      db.execute("UPDATE prestamos SET fecha_devolucion = ? WHERE id = ?;", [@fecha_devolucion, @id])
     end
   end
 end
